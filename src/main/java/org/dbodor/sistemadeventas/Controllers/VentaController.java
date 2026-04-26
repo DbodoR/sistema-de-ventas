@@ -1,10 +1,7 @@
 package org.dbodor.sistemadeventas.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class VentaController {
     @FXML
@@ -36,6 +33,9 @@ public class VentaController {
 
     @FXML
     private Label lblTotal;
+
+    @FXML
+    private TableView<?> tablaVenta;
 
     @FXML
     private TextField txtBuscar;

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -8,17 +10,39 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.DashboardController">
    <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="5.0" />
-         </padding>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnVenta" mnemonicParsing="false" onAction="#ventanaVenta" text="Venta" />
-            <Button fx:id="btnInventario" mnemonicParsing="false" text="Inventario" />
-            <Button fx:id="btnGuardarArticulo" mnemonicParsing="false" text="Ingresar articulo" />
-            <Button fx:id="btnGraficas" mnemonicParsing="false" text="Gráficas" />
-            <Button fx:id="btnCerrar" mnemonicParsing="false" text="Cerrar caja" />
+            <Button fx:id="btnVenta" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaVenta" styleClass="btn-primary, btn-lg" text="Venta">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnInventario" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="btn-primary, btn-lg" text="Inventario">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnGuardarArticulo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="btn-primary, btn-lg" text="Ingresar articulo">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnGraficas" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="btn-primary, btn-lg" text="Gráficas">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="btnCerrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrarCaja" text="Cerrar caja">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-danger" />
+                  <String fx:value="btn-lg" />
+               </styleClass></Button>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="10.0" />
+         </padding>
       </HBox>
    </top>
    <center>
