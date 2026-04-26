@@ -13,11 +13,11 @@
             <Insets bottom="5.0" />
          </padding>
          <children>
-            <Button mnemonicParsing="false" text="Venta" />
-            <Button mnemonicParsing="false" text="Inventario" />
-            <Button mnemonicParsing="false" text="Ingresar articulo" />
-            <Button mnemonicParsing="false" text="Gráficas" />
-            <Button mnemonicParsing="false" text="Cerrar caja" />
+            <Button fx:id="btnVenta" mnemonicParsing="false" onAction="#ventanaVenta" text="Venta" />
+            <Button fx:id="btnInventario" mnemonicParsing="false" text="Inventario" />
+            <Button fx:id="btnGuardarArticulo" mnemonicParsing="false" text="Ingresar articulo" />
+            <Button fx:id="btnGraficas" mnemonicParsing="false" text="Gráficas" />
+            <Button fx:id="btnCerrar" mnemonicParsing="false" text="Cerrar caja" />
          </children>
       </HBox>
    </top>

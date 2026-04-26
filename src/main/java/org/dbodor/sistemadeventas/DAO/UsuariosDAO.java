@@ -19,7 +19,6 @@ public class UsuariosDAO {
 
             ResultSet rs = pstmt.executeQuery();
 
-            // Si el ResultSet tiene un registro, las credenciales son correctas
             return rs.next();
 
         } catch (SQLException e) {

@@ -1,6 +1,6 @@
 package org.dbodor.sistemadeventas.Model;
 
-public class Productos {
+public class Producto {
     private int id;
     private String nombre;
     private String descripcion;
@@ -9,11 +9,12 @@ public class Productos {
     private int categoria_id;
     private String codigoBarras;
     private boolean precioVariable;
+    private double costo;
 
-    public Productos() {
+    public Producto() {
     }
 
-    public Productos(int id, String nombre, String descripcion, double precio, int stock, int categoria_id, String codigoBarras, boolean precioVariable) {
+    public Producto(int id, String nombre, String descripcion, double precio, int stock, int categoria_id, String codigoBarras, boolean precioVariable, double costo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -22,9 +23,10 @@ public class Productos {
         this.categoria_id = categoria_id;
         this.codigoBarras = codigoBarras;
         this.precioVariable = precioVariable;
+        this.costo = costo;
     }
 
-    public Productos(String nombre, String descripcion, double precio, int stock, int categoria_id, String codigoBarras, boolean precioVariable) {
+    public Producto(String nombre, String descripcion, double precio, int stock, int categoria_id, String codigoBarras, boolean precioVariable, double costo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -32,7 +34,7 @@ public class Productos {
         this.categoria_id = categoria_id;
         this.codigoBarras = codigoBarras;
         this.precioVariable = precioVariable;
-
+        this.costo = costo;
     }
 
     public int getId() {
@@ -97,6 +99,14 @@ public class Productos {
 
     public void setPrecioVariable(boolean precioVariable) {
         this.precioVariable = precioVariable;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo){
+        this.costo = costo;
     }
 
     @Override
