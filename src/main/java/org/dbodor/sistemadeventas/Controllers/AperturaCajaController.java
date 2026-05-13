@@ -48,7 +48,7 @@ public class AperturaCajaController {
             }
 
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato inválido", "Por favor ingrese solo números (Ej: 50000 o 50000.50).");
+            mostrarAlerta("Formato inválido", "Por favor ingrese solo números.");
         }
     }
 

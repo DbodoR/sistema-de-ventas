@@ -16,6 +16,7 @@ import org.dbodor.sistemadeventas.DAO.VentaDAO;
 import org.dbodor.sistemadeventas.Model.Turno;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import java.net.URL;
@@ -90,6 +91,20 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    void ventanaIngresarProducto(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ingresar_articulo.fxml"));
+            Parent vistaHija = loader.load();
+
+            areaContenido.getChildren().clear();
+            areaContenido.getChildren().add(vistaHija);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void cerrarCaja(ActionEvent event) {
         TurnoDAO turnoDAO = new TurnoDAO();
         Turno turnoAbierto = turnoDAO.getTurnoAbierto();
@@ -138,7 +153,7 @@ public class DashboardController implements Initializable {
         alert.setContentText(mensaje);
 
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         dialogPane.getStyleClass().addAll("alert", "alert-danger");
         alert.showAndWait();
     }

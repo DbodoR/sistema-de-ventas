@@ -16,7 +16,7 @@
          <children>
             <Label text="Buscar producto" />
             <TextField fx:id="txtBuscar" prefWidth="350.0" promptText="Código de barras o nombre" />
-            <Button fx:id="btnProducto" mnemonicParsing="false" styleClass="btn-primary, btn-sm" text="Buscar" />
+            <Button fx:id="btnProducto" mnemonicParsing="false" onAction="#buscarProducto" styleClass="btn-primary, btn-sm" text="Buscar" />
          </children>
       </HBox>
       <TableView prefHeight="200.0" prefWidth="200.0" styleClass="table-condensed" VBox.vgrow="ALWAYS">
@@ -27,6 +27,7 @@
             <TableColumn fx:id="colCosto" prefWidth="75.0" text="Costo" />
             <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio venta" />
             <TableColumn fx:id="colStock" prefWidth="75.0" text="Stock" />
+            <TableColumn fx:id="colAccion" prefWidth="75.0" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
