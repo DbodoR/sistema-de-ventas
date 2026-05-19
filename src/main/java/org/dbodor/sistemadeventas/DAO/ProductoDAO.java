@@ -76,10 +76,14 @@ public class ProductoDAO {
             pstmt.setDouble(2, producto.getPrecio());
             pstmt.setInt(3, producto.getStock());
             pstmt.setDouble(4, producto.getCosto());
-            pstmt.setInt(5, producto.getCategoria_id());
+            if (producto.getCategoria_id() > 0) {
+                pstmt.setInt(5, producto.getCategoria_id());
+            } else {
+                pstmt.setNull(5, java.sql.Types.INTEGER);
+            }
             pstmt.setString(6, producto.getCodigoBarras());
-            pstmt.setBoolean(7, producto.isPrecioVariable());
-            pstmt.setInt(8, producto.getId()); // Filtramos por el ID único del producto
+            pstmt.setInt(7, producto.isPrecioVariable() ? 1 : 0);
+            pstmt.setInt(8, producto.getId());
 
             int filasAfectadas = pstmt.executeUpdate();
             return filasAfectadas > 0;

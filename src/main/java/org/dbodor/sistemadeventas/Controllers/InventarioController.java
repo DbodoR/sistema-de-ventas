@@ -113,7 +113,6 @@ public class InventarioController implements Initializable {
         filtroBusqueda = new FilteredList<>(listaProducto, p -> true);
         txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             filtroBusqueda.setPredicate(producto -> {
-                // Si el buscador está vacío, muestra todos los productos
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
@@ -163,6 +162,7 @@ public class InventarioController implements Initializable {
             
             while (rs.next()) {
                 listaProducto.add(new Producto(
+                        rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getDouble("precio"),
                         rs.getInt("stock"),
@@ -176,6 +176,36 @@ public class InventarioController implements Initializable {
 
         }catch (SQLException ex){
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void editarProductos(ActionEvent event) {
+        Producto seleccionado = inventarioTabla.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            mostrarAlerta("Atención", "Por favor, selecciona un producto de la tabla para modificar.");
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editar_producto.fxml"));
+            Parent root = loader.load();
+
+            EditarProductoController controller = loader.getController();
+            controller.cargarDatosProducto(seleccionado);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.showAndWait();
+
+            recargarLista();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -203,35 +233,5 @@ public class InventarioController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    void editarProductos(ActionEvent event) {
-        Producto seleccionado = inventarioTabla.getSelectionModel().getSelectedItem();
 
-        if (seleccionado == null) {
-            mostrarAlerta("Atención", "Por favor, selecciona un producto de la tabla para modificar.");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/editar_producto.fxml"));
-            Parent root = loader.load();
-
-            EditarProductoController controller = loader.getController();
-            controller.cargarDatosProducto(seleccionado); // Le enviamos el producto seleccionado
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-
-            stage.setOnCloseRequest(e -> e.consume());
-
-            stage.showAndWait();
-
-            recargarLista();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
