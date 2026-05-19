@@ -64,4 +64,29 @@ public class ProductoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean actualizarProducto(Producto producto) {
+        String sql = "UPDATE productos SET nombre = ?, precio = ?, stock = ?, costo = ?, "
+                + "categoria_id = ?, codigo_barras = ?, precio_variable = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, producto.getNombre());
+            pstmt.setDouble(2, producto.getPrecio());
+            pstmt.setInt(3, producto.getStock());
+            pstmt.setDouble(4, producto.getCosto());
+            pstmt.setInt(5, producto.getCategoria_id());
+            pstmt.setString(6, producto.getCodigoBarras());
+            pstmt.setBoolean(7, producto.isPrecioVariable());
+            pstmt.setInt(8, producto.getId()); // Filtramos por el ID único del producto
+
+            int filasAfectadas = pstmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar producto: " + e.getMessage());
+            return false;
+        }
+    }
 }

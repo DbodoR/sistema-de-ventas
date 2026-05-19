@@ -105,6 +105,20 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    void ventanaInventario(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/inventario.fxml"));
+            Parent vistaHija = loader.load();
+
+            areaContenido.getChildren().clear();
+            areaContenido.getChildren().add(vistaHija);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void cerrarCaja(ActionEvent event) {
         TurnoDAO turnoDAO = new TurnoDAO();
         Turno turnoAbierto = turnoDAO.getTurnoAbierto();

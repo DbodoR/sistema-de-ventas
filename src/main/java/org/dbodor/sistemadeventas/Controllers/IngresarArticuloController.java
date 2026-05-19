@@ -250,6 +250,4 @@ public class IngresarArticuloController implements Initializable {
         dialogPane.getStyleClass().addAll("alert", "alert-success");
         alert.showAndWait();
     }
-
-
 }

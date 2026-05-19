@@ -24,6 +24,24 @@ public class CategoriaDAO {
             return false;
         }
     }
+
+    public String obtenerNombrePorId(int id) {
+        String sql = "SELECT nombre FROM categorias WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("nombre");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Sin categoría";
+    }
+
     public List<Categoria> listarTodas() {
         List<Categoria> listaCategorias = new ArrayList<>();
         String sql = "SELECT id, nombre FROM categorias ORDER BY nombre ASC";

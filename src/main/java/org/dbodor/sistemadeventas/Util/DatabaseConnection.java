@@ -11,7 +11,6 @@ public class DatabaseConnection {
         return DriverManager.getConnection(URL);
     }
 
-    // Metodo rápido para testear la conexión sin mantenerla abierta
     public static void testConnection() throws SQLException {
         try (Connection conn = getConnection()) {
             if (conn == null) throw new SQLException("No se pudo establecer la conexión.");

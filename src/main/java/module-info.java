@@ -10,4 +10,5 @@ module org.dbodor.sistemadeventas {
     exports org.dbodor.sistemadeventas;
     exports org.dbodor.sistemadeventas.Controllers;
     opens org.dbodor.sistemadeventas.Controllers to javafx.fxml;
+    opens org.dbodor.sistemadeventas.Model to javafx.base;
 }
