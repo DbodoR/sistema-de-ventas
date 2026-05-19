@@ -29,8 +29,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtBuscar" prefWidth="350.0" promptText="Código de barras o nombre" />
-            <Button fx:id="btnProducto" mnemonicParsing="false" styleClass="btn-primary, btn-sm" text="Agregar" />
+            <TextField fx:id="txtBuscar" onAction="#buscarProducto" prefWidth="350.0" promptText="Código de barras o nombre" />
          </children>
       </HBox>
       <TableView fx:id="tablaVenta" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -52,7 +51,7 @@
       </TableView>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button fx:id="btnCancelar" mnemonicParsing="false" styleClass="btn-danger, btn-lg" text="Cancelar Venta" />
+            <Button mnemonicParsing="false" onAction="#cancelarVenta" styleClass="btn-danger, btn-lg" text="Cancelar Venta" />
             <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Label text="TOTAL A PAGAR:">
                <font>

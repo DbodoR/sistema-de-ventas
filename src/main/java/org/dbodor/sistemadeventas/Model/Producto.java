@@ -103,6 +103,11 @@ public class Producto {
         return cantidad;
     }
 
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
     @Override
     public String toString() {
         return "Productos{" +

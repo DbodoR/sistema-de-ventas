@@ -8,17 +8,21 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="930.0" prefWidth="1297.0" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.InventarioController">
    <children>
       <Label styleClass="h2" text="Inventario" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
-            <Label text="Buscar producto" />
+            <Label text="Buscar producto">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
             <TextField fx:id="txtBuscar" prefWidth="350.0" promptText="Código de barras o nombre" />
          </children>
       </HBox>
-      <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#editarProductos" prefHeight="25.0" prefWidth="54.0" styleClass="btn-primary" text="Editar" VBox.vgrow="NEVER" />
+      <Button cancelButton="true" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#editarProductos" prefHeight="25.0" prefWidth="54.0" styleClass="btn-primary" text="Editar" VBox.vgrow="NEVER" />
       <TableView fx:id="inventarioTabla" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="colCodigo" editable="false" minWidth="75.0" prefWidth="75.0" sortable="false" text="Código" />

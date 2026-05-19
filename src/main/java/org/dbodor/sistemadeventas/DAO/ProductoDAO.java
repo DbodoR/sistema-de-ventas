@@ -10,14 +10,13 @@ import java.sql.SQLException;
 public class ProductoDAO {
 
     public Producto buscar(String criterio) {
-        String sql = "SELECT * FROM productos WHERE codigo_barras = ? OR nombre LIKE ?";
+        String sql = "SELECT * FROM productos WHERE codigo_barras = ?";
         Producto p = null;
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, criterio);
-            pstmt.setString(2, "%" + criterio + "%");
 
             ResultSet rs = pstmt.executeQuery();
 

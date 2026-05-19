@@ -144,11 +144,12 @@ public class InventarioController implements Initializable {
 
 
             tabla.getColumns().get(0).setPrefWidth(anchoEfectivo * 0.15);
-            tabla.getColumns().get(1).setPrefWidth(anchoEfectivo * 0.30);
-            tabla.getColumns().get(2).setPrefWidth(anchoEfectivo * 0.20);
+            tabla.getColumns().get(1).setPrefWidth(anchoEfectivo * 0.25);
+            tabla.getColumns().get(2).setPrefWidth(anchoEfectivo * 0.15);
             tabla.getColumns().get(3).setPrefWidth(anchoEfectivo * 0.11);
             tabla.getColumns().get(4).setPrefWidth(anchoEfectivo * 0.12);
             tabla.getColumns().get(5).setPrefWidth(anchoEfectivo * 0.12);
+            tabla.getColumns().get(6).setPrefWidth(anchoEfectivo * 0.10);
         });
     }
 
