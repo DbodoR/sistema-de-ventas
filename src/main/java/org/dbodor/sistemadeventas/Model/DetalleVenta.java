@@ -5,17 +5,14 @@ public class DetalleVenta {
     private int ventaId;
     private int productoId;
     private int cantidad;
-    private double costoUnitario;
     private double precioUnitario;
+    private double costoUnitario;
 
     public DetalleVenta() {}
 
-    public DetalleVenta(int id, int ventaId, int productoId, int cantidad, double costoUnitario, double precioUnitario) {
-        this.id = id;
-        this.ventaId = ventaId;
+    public DetalleVenta(int productoId, int cantidad, double precioUnitario) {
         this.productoId = productoId;
         this.cantidad = cantidad;
-        this.costoUnitario = costoUnitario;
         this.precioUnitario = precioUnitario;
     }
 
@@ -32,13 +29,14 @@ public class DetalleVenta {
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
 
-    public double getCostoUnitario() { return costoUnitario; }
-    public void setCostoUnitario(double costoUnitario) { this.costoUnitario = costoUnitario; }
-
     public double getPrecioUnitario() { return precioUnitario; }
     public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
 
-    public double getSubtotal() {
-        return this.cantidad * this.precioUnitario;
+    public double getCostoUnitario() {
+        return costoUnitario;
+    }
+
+    public void setCostoUnitario(double costoUnitario) {
+        this.costoUnitario = costoUnitario;
     }
 }

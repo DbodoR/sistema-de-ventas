@@ -6,16 +6,10 @@ public class Venta {
     private String fecha;
     private String metodoPago;
     private double total;
+    private double montoRecibido;
+    private double cambio;
 
     public Venta() {}
-
-    public Venta(int id, int turnoId, String fecha, String metodoPago, double total) {
-        this.id = id;
-        this.turnoId = turnoId;
-        this.fecha = fecha;
-        this.metodoPago = metodoPago;
-        this.total = total;
-    }
 
     // Getters y Setters
     public int getId() { return id; }
@@ -32,4 +26,20 @@ public class Venta {
 
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
+
+    public double getMontoRecibido() {
+        return montoRecibido;
+    }
+
+    public void setMontoRecibido(double montoRecibido) {
+        this.montoRecibido = montoRecibido;
+    }
+
+    public double getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(double cambio) {
+        this.cambio = cambio;
+    }
 }

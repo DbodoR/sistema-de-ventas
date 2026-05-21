@@ -150,10 +150,6 @@ public class IngresarArticuloController implements Initializable {
 
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            stage.initStyle(StageStyle.UNDECORATED);
-
-            stage.setOnCloseRequest(evento -> evento.consume());
-
             stage.showAndWait();
 
             CategoriaDAO catDAO = new CategoriaDAO();
@@ -189,10 +185,6 @@ public class IngresarArticuloController implements Initializable {
             stage.setScene(new Scene(root));
 
             stage.initModality(Modality.APPLICATION_MODAL);
-
-            stage.initStyle(StageStyle.UNDECORATED);
-
-            stage.setOnCloseRequest(evento -> evento.consume());
 
             stage.showAndWait();
 

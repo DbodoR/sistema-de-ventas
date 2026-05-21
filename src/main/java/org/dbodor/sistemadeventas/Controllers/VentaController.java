@@ -5,17 +5,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
+import org.dbodor.sistemadeventas.DAO.TurnoDAO;
 import org.dbodor.sistemadeventas.Model.DetalleVenta;
 import org.dbodor.sistemadeventas.Model.Producto;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.dbodor.sistemadeventas.Model.Turno;
 import org.dbodor.sistemadeventas.Model.Venta;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class VentaController implements Initializable {
@@ -54,6 +63,8 @@ public class VentaController implements Initializable {
     private double totalVenta = 0.0;
 
     private Producto producto = null;
+
+    private TurnoDAO turnoDAO = new TurnoDAO();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -195,5 +206,67 @@ public class VentaController implements Initializable {
         btnCobrar.setDisable(true);
         txtBuscar.clear();
         txtBuscar.requestFocus();
+    }
+
+    @FXML
+    private void cobrarVenta(ActionEvent event) {
+
+        if (carritoCompras.isEmpty()) return;
+        if (!turnoDAO.hayTurnoAbierto()) return;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cobro.fxml"));
+            Parent root = loader.load();
+
+            CobroController cobroController = loader.getController();
+
+            double totalActual = carritoCompras.stream()
+                    .mapToDouble(p -> p.getPrecio() * p.getCantidad())
+                    .sum();
+
+            Turno turno = turnoDAO.getTurnoAbierto();
+
+            if (turno == null) {
+                mostrarAlerta("Error de Turno", "No se pudo recuperar la información del turno actual. Intente reabrir caja.");
+                return;
+            }
+
+            cobroController.setData(totalActual, new ArrayList<>(carritoCompras), turno.getId());
+
+            Stage modalStage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            modalStage.setScene(scene);
+            modalStage.setTitle("Caja de Cobro");
+            modalStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            modalStage.initOwner(btnCobrar.getScene().getWindow());
+            modalStage.setResizable(false);
+
+            modalStage.showAndWait();
+
+            if (cobroController.isVentaRealizada()) {
+                carritoCompras.clear();
+
+                calcularTotal();
+                txtBuscar.clear();
+                txtBuscar.requestFocus();
+
+                btnCobrar.setDisable(true);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStyleClass().addAll("alert", "alert-danger");
+        alert.showAndWait();
     }
 }

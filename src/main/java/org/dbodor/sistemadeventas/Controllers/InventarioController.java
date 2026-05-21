@@ -67,6 +67,7 @@ public class InventarioController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        inventarioTabla.setStyle("-fx-font-size: 15px;");
         colProducto.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarras"));
         colCategoria.setCellValueFactory(cellData -> {

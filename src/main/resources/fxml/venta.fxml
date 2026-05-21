@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
-            <Button fx:id="btnCobrar" mnemonicParsing="false" styleClass="btn-success, btn-lg" text="Cobrar" />
+            <Button fx:id="btnCobrar" mnemonicParsing="false" onAction="#cobrarVenta" styleClass="btn-success, btn-lg" text="Cobrar" />
          </children>
       </HBox>
    </children>
