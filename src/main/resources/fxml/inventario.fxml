@@ -12,7 +12,14 @@
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="930.0" prefWidth="1297.0" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.InventarioController">
    <children>
-      <Label styleClass="h2" text="Inventario" />
+      <HBox alignment="TOP_CENTER" prefHeight="70.0" prefWidth="1257.0">
+         <children>
+            <Label styleClass="h2" text="Inventario">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
             <Label text="Buscar producto">

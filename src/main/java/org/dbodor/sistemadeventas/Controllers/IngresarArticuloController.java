@@ -21,6 +21,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class IngresarArticuloController implements Initializable {
@@ -108,6 +109,10 @@ public class IngresarArticuloController implements Initializable {
             return;
         }
 
+        if (costo < precio){
+            mostrarAlerta("Error de valores", "El costo no puede ser menor al precio");
+        }
+
         boolean precioVariable = false;
         if (checkPrecioVariable != null) {
             precioVariable = checkPrecioVariable.isSelected();
@@ -146,7 +151,9 @@ public class IngresarArticuloController implements Initializable {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            stage.setScene(scene);
 
             stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -182,7 +189,9 @@ public class IngresarArticuloController implements Initializable {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            stage.setScene(scene);
 
             stage.initModality(Modality.APPLICATION_MODAL);
 

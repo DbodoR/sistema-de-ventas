@@ -24,7 +24,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="btnGraficas" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="btn-primary, btn-lg" text="Gráficas">
+            <Button fx:id="btnGraficas" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaGraficas" styleClass="btn-primary, btn-lg" text="Reportes">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>

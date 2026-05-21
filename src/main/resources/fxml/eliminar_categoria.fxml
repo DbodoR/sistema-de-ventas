@@ -12,7 +12,10 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <Label styleClass="h2" text="Eliminar categoria" />
+      <Label styleClass="h2" text="Eliminar categoria">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
       <Label text="Seleccione la categoria a eliminar:">
          <font>
             <Font size="14.0" />

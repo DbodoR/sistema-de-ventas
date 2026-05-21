@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
 import org.dbodor.sistemadeventas.DAO.TurnoDAO;
@@ -129,12 +130,15 @@ public class VentaController implements Initializable {
             btnCobrar.setDisable(true);
         }
         tablaVenta.setStyle("-fx-font-size: 15px;");
+
+        tablaVenta.setPlaceholder(new Label("No hay articulos en el carrito."));
     }
 
     private void expandirYBloquearColumnas(TableView<Producto> tabla) {
         for (TableColumn<Producto, ?> columna : tabla.getColumns()) {
             columna.setReorderable(false);
             columna.setResizable(false);
+            columna.setSortable(false);
         }
 
         tabla.widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -213,6 +217,42 @@ public class VentaController implements Initializable {
 
         if (carritoCompras.isEmpty()) return;
         if (!turnoDAO.hayTurnoAbierto()) return;
+
+        ProductoDAO proDAO = new ProductoDAO();
+        StringBuilder productosSinStock = new StringBuilder();
+
+        for (Producto p : carritoCompras) {
+            Producto productoBD = proDAO.buscar(p.getCodigoBarras());
+
+            if (productoBD == null) {
+                productosSinStock.append(String.format("• %s (No encontrado en el sistema)\n", p.getNombre()));
+            } else if (productoBD.getStock() < p.getCantidad()) {
+                productosSinStock.append(String.format("• %s\n  Llevas: %d  |  Disponible en inventario: %d\n\n",
+                        p.getNombre(), p.getCantidad(), productoBD.getStock()));
+            }
+        }
+
+        // Si hay productos sin inventario suficiente, se muestra la alerta corregida
+        if (productosSinStock.length() > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Stock Insuficiente");
+            alert.setHeaderText("No se puede proceder con la venta:");
+            alert.setContentText(productosSinStock.toString());
+
+            // Aplicar BootstrapFX
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            dialogPane.getStyleClass().addAll("alert", "alert-danger");
+
+            // --- SOLUCIÓN AL TRUNCAMIENTO ("...") ---
+            // Forzar a que el texto se ajuste y no se corte
+            dialogPane.setMinHeight(Region.USE_PREF_SIZE);
+            dialogPane.setMinWidth(Region.USE_PREF_SIZE);
+
+            alert.showAndWait();
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cobro.fxml"));
             Parent root = loader.load();

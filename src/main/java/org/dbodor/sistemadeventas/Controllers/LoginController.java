@@ -17,6 +17,7 @@ import org.dbodor.sistemadeventas.Util.DatabaseConnection;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoginController {
 
@@ -77,7 +78,7 @@ public class LoginController {
 
         loginTask.setOnSucceeded(e -> {
             boolean esValido = loginTask.getValue();
-            textoStatus.textProperty().unbind(); // Desvinculamos para poner nuestro propio mensaje final
+            textoStatus.textProperty().unbind();
             if (esValido) {
                 textoStatus.setText("¡Acceso concedido!");
                 textoStatus.setStyle("-fx-text-fill: green;");
@@ -90,9 +91,17 @@ public class LoginController {
 
                     Scene scene = new Scene(root);
                     scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                    scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
 
-                    stage.setTitle("Jean Pier Agro's");
+                    stage.setTitle("Sistema de Ventas - Jean Pier Agro's");
                     stage.setScene(scene);
+
+                    double anchoDeseado = 1920;
+                    double altoDeseado = 1080;
+
+                    stage.setMinWidth(anchoDeseado);
+                    stage.setMinHeight(altoDeseado);
+
                     stage.setResizable(true);
                     stage.setMaximized(true);
                 } catch (IOException ex) {

@@ -25,12 +25,12 @@
                   <Insets right="10.0" />
                </padding>
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <Label fx:id="lblTotal">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
          </children>
@@ -39,7 +39,7 @@
          <children>
             <Label text="Método de pago:">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -52,7 +52,7 @@
          <children>
             <Label text="Monto:">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -65,7 +65,7 @@
          <children>
             <Label text="Cambio:">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -73,7 +73,7 @@
             </Label>
             <Label fx:id="lblCambio" text="\$ 0.00">
                <font>
-                  <Font size="14.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
          </children>

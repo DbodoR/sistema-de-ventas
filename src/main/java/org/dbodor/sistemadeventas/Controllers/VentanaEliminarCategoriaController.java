@@ -29,7 +29,7 @@ public class VentanaEliminarCategoriaController implements Initializable {
         CategoriaDAO catDAO = new CategoriaDAO();
         List<Categoria> lista = catDAO.listarTodas();
 
-        lista.removeIf(categoria -> categoria.getNombre() == "Sin categoria");
+        lista.removeIf(categoria -> "Sin categoria".equals(categoria.getNombre()));
 
         boxCategoria.setItems(FXCollections.observableArrayList(lista));
 

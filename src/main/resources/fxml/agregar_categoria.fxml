@@ -12,7 +12,10 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <Label styleClass="h2" text="Agregar categoria" />
+      <Label styleClass="h2" text="Agregar categoria">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
       <Label text="Ingrese el nombre de la categoria nueva:">
          <font>
             <Font size="14.0" />

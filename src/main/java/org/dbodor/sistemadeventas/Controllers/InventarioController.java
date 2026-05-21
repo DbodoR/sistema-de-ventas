@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class InventarioController implements Initializable {
@@ -89,6 +90,8 @@ public class InventarioController implements Initializable {
             boolean esVariable = cellData.getValue().isPrecioVariable();
             return new SimpleStringProperty(esVariable ? "Variable" : "Fijo");});
 
+        inventarioTabla.setPlaceholder(new Label("No hay productos registrados."));
+
         colProducto.setCellFactory(column -> new TableCell<Producto, String>() {
             private final Tooltip tooltip = new Tooltip();
 
@@ -134,8 +137,9 @@ public class InventarioController implements Initializable {
 
     private void expandirYBloquearColumnas(TableView<Producto> tabla) {
         for (TableColumn<Producto, ?> columna : tabla.getColumns()) {
-            columna.setReorderable(false); //
-            columna.setResizable(false);   //
+            columna.setReorderable(false);
+            columna.setResizable(false);
+            columna.setSortable(false);
         }
 
         tabla.widthProperty().addListener((observable, oldValue, newValue) -> {
@@ -199,6 +203,7 @@ public class InventarioController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
 

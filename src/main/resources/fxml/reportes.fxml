@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1316.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.ReportesController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label styleClass="h2" text="Reportes">
+         <VBox.margin>
+            <Insets bottom="40.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <HBox fx:id="contenedorGraficos" alignment="CENTER" prefHeight="369.0" prefWidth="1196.0">
+         <children>
+            <PieChart fx:id="chartDiario" maxWidth="1.7976931348623157E308" prefHeight="355.0" prefWidth="370.0" />
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <padding>
+                  <Insets left="25.0" right="25.0" />
+               </padding>
+            </Separator>
+            <StackedBarChart fx:id="chartSemanal">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <padding>
+                  <Insets left="25.0" right="25.0" />
+               </padding>
+            </Separator>
+            <StackedBarChart fx:id="chartMensual">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="20.0" top="20.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="406.0" prefWidth="1280.0" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox maxWidth="1.7976931348623157E308" prefHeight="406.0" prefWidth="641.0">
+               <children>
+                  <ComboBox fx:id="comboAnio" prefWidth="150.0" />
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <TableView fx:id="tablaAnual" maxWidth="1.7976931348623157E308" prefHeight="376.0" prefWidth="403.0">
+                     <columns>
+                        <TableColumn fx:id="colMes" prefWidth="79.0" text="Mes" />
+                        <TableColumn fx:id="colTransacciones" prefWidth="111.0" text="Transacciones" />
+                        <TableColumn fx:id="colIngresos" prefWidth="100.0" text="Ingresos" />
+                        <TableColumn fx:id="colCostos" prefWidth="101.0" text="Costos" />
+                        <TableColumn fx:id="colBeneficio" prefWidth="135.0" text="Beneficios" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Separator>
+            <VBox alignment="CENTER" prefHeight="376.0" prefWidth="591.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="484.0">
+                     <children>
+                        <Label text="Ventas Anuales:">
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblVentasAnuales" text="0">
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="484.0">
+                     <children>
+                        <Label text="Beneficio Anual:">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblBeneficioAnual" text="0">
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="57.0" prefWidth="484.0">
+                     <children>
+                        <Label text="Producto mas vendido:">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblProdMasVendido" text=".">
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="484.0">
+                     <children>
+                        <Label text="Categoria mas vendida:">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="lblCatMasVendida" text=".">
+                           <styleClass>
+                              <String fx:value="h3" />
+                              <String fx:value="text-success" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -20,6 +20,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -59,7 +60,9 @@ public class DashboardController implements Initializable {
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            stage.setScene(scene);
 
             stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -108,6 +111,20 @@ public class DashboardController implements Initializable {
     void ventanaInventario(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/inventario.fxml"));
+            Parent vistaHija = loader.load();
+
+            areaContenido.getChildren().clear();
+            areaContenido.getChildren().add(vistaHija);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void ventanaGraficas(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/reportes.fxml"));
             Parent vistaHija = loader.load();
 
             areaContenido.getChildren().clear();

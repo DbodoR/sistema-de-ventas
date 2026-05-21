@@ -37,6 +37,8 @@ public class CobroController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cmbMetodoPago.setItems(FXCollections.observableArrayList("Efectivo", "Transferencia"));
         cmbMetodoPago.setValue("Efectivo");
+        lblCambio.setStyle("-fx-font-weight: bold;");
+        cmbMetodoPago.setStyle("-fx-font-size: 16px");
 
         cmbMetodoPago.getSelectionModel().selectedItemProperty().addListener((obs, viejo, nuevo) -> {
             if ("Transferencia".toUpperCase().equals(nuevo)) {
