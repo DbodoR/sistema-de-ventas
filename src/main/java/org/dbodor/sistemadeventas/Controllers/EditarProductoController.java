@@ -94,7 +94,7 @@ public class EditarProductoController implements Initializable {
         productoAEditar.setPrecioVariable(checkPrecioVariable.isSelected());
 
         Categoria catSeleccionada = boxCategoria.getSelectionModel().getSelectedItem();
-        productoAEditar.setCategoria_id(catSeleccionada != null ? catSeleccionada.getId() : 6);
+        productoAEditar.setCategoria_id(catSeleccionada != null ? catSeleccionada.getId() : 1);
 
         ProductoDAO dao = new ProductoDAO();
         if (dao.actualizarProducto(productoAEditar)) {

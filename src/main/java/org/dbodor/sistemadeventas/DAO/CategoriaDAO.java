@@ -66,7 +66,7 @@ public class CategoriaDAO {
     }
 
     public boolean eliminarCategoria(int id){
-        String sqlActualizarProductos = "UPDATE productos SET categoria_id = 6 WHERE categoria_id = ?";
+        String sqlActualizarProductos = "UPDATE productos SET categoria_id = 1 WHERE categoria_id = ?";
         String sqlEliminarCategoria = "DELETE FROM categorias WHERE id = ?";
 
         Connection conn = null;

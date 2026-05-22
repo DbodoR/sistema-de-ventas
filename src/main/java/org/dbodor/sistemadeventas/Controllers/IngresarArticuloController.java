@@ -125,7 +125,7 @@ public class IngresarArticuloController implements Initializable {
             precioVariable = checkPrecioVariable.isSelected();
         }
 
-        int categoriaId = 6;
+        int categoriaId = 1;
         if (boxCategoria.getSelectionModel().getSelectedItem() != null) {
                  categoriaId = boxCategoria.getSelectionModel().getSelectedItem().getId();
             }

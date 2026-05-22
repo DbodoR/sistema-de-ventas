@@ -74,20 +74,37 @@ public class VentaDAO {
         }
     }
 
-    public double calcularTotalVentasPorTurno(int turnoId) {
-        String sql = "SELECT SUM(total) AS total_ventas FROM ventas WHERE turno_id = ?";
-
+    public double calcularTotalVentasPorTurno(int idTurno) {
+        // Filtramos usando la cláusula WHERE metodo_pago = 'EFECTIVO'
+        String sql = "SELECT SUM(total) FROM ventas WHERE turno_id = ? AND UPPER(metodo_pago) = 'EFECTIVO'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, turnoId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getDouble("total_ventas");
+            pstmt.setInt(1, idTurno);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error al sumar las ventas: " + e.getMessage());
+            System.out.println("Error al calcular ventas en efectivo por turno: " + e.getMessage());
+        }
+        return 0.0;
+    }
+
+    public double calcularTotalTransferenciasPorTurno(int idTurno) {
+        String sql = "SELECT SUM(total) FROM ventas WHERE turno_id = ? AND UPPER(metodo_pago) = 'TRANSFERENCIA'";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idTurno);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al calcular transferencias por turno: " + e.getMessage());
         }
         return 0.0;
     }

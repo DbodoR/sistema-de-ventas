@@ -83,46 +83,63 @@ public class VentaController implements Initializable {
         });
 
         colAcciones.setCellFactory(param -> new TableCell<Producto, String>() {
-            private final Button btnEliminar = new Button("X");
-            private final HBox contenedorCentrado = new HBox(btnEliminar);
+            // Componentes visuales de la celda
+            private final Button btnMas = new Button("+");
+            private final Button btnMenos = new Button("-");
+            private final HBox contenedorBotonera = new HBox(5, btnMas, btnMenos); // 5px de separación espacial
 
             {
-                contenedorCentrado.setAlignment(Pos.CENTER);
+                // 1. Estilizar los botones con BootstrapFX y tu style.css
+                btnMas.getStyleClass().addAll("btn-success", "btn-sm");
+                btnMas.setStyle("-fx-font-size: 15px");
+                btnMas.setStyle("-fx-font-weight: bold");
+                btnMenos.getStyleClass().addAll("btn-danger", "btn-sm");
+                btnMenos.setStyle("-fx-font-size: 15px");
+                btnMenos.setStyle("-fx-font-weight: bold");
+                contenedorBotonera.setAlignment(javafx.geometry.Pos.CENTER);
 
-                btnEliminar.setStyle(
-                        "-fx-font-weight: bold; " +
-                                "-fx-font-size: 15px; " +
-                                "-fx-pref-width: 32px; " +
-                                "-fx-pref-height: 32px; " +
-                                "-fx-padding: 0; " +
-                                "-fx-background-radius: 5px;" +
-                                "-fx-background-color: #a50505;" +
-                                "-fx-text-fill: white;"
-                );
+                // --- ACCIÓN DEL BOTÓN AUMENTAR (+) ---
+                btnMas.setOnAction(event -> {
+                    Producto producto = getTableView().getItems().get(getIndex());
+                    if (producto != null) {
+                        if (producto.getCantidad() < producto.getStock()) {
+                            producto.setCantidad(producto.getCantidad() + 1);
+
+                            getTableView().refresh();
+                            calcularTotal();
+                        } else {
+                            mostrarAlerta("Límite de Stock", "No hay más unidades disponibles de: " + producto.getNombre());
+                        }
+                    }
+                });
+
+                // --- ACCIÓN DEL BOTÓN DISMINUIR (-) ---
+                btnMenos.setOnAction(event -> {
+                    Producto producto = getTableView().getItems().get(getIndex());
+                    if (producto != null) {
+                        if (producto.getCantidad() > 1) {
+                            // Si hay más de una unidad, restamos una
+                            producto.setCantidad(producto.getCantidad() - 1);
+                        } else {
+                            // Si la cantidad llega a 1 y presionan -, se remueve por completo del carrito
+                            getTableView().getItems().remove(producto);
+                        }
+
+                        // Refrescar la tabla y recalcular el total de la venta actual
+                        getTableView().refresh();
+                        calcularTotal();
+                    }
+                });
             }
 
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (empty) {
                     setGraphic(null);
-                    setText(null);
                 } else {
-                    btnEliminar.setOnAction(event -> {
-                        Producto productoFila = getTableView().getItems().get(getIndex());
-
-                        if (productoFila.getCantidad() > 1) {
-                            productoFila.setCantidad(productoFila.getCantidad() - 1);
-                            getTableView().refresh();
-                        } else carritoCompras.remove(productoFila);
-
-                        calcularTotal();
-                    });
-
-                    setStyle("-fx-alignment: CENTER;");
-                    setGraphic(contenedorCentrado);
-                    setText(null);
+                    // Mostramos el HBox con ambos botones en la fila correspondiente
+                    setGraphic(contenedorBotonera);
                 }
             }
         });

@@ -46,11 +46,9 @@ public class TurnoDAO {
     }
 
     public boolean cerrarTurno(double montoFinal) {
-        // 1. Hora de Bogotá para el cierre
         LocalDateTime ahoraEnBogota = LocalDateTime.now(ZoneId.of("America/Bogota"));
         String fechaCierre = ahoraEnBogota.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        // 2. Actualizamos el turno que esté abierto
         String sql = "UPDATE turnos SET monto_final = ?, fecha_cierre = ?, estado = 'CERRADO' WHERE estado = 'ABIERTO'";
 
         try (Connection conn = DatabaseConnection.getConnection();

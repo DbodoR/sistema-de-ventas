@@ -140,24 +140,28 @@ public class DashboardController implements Initializable {
         TurnoDAO turnoDAO = new TurnoDAO();
         Turno turnoAbierto = turnoDAO.getTurnoAbierto();
 
-        // 1. Verificamos que realmente haya un turno abierto
         if (turnoAbierto != null) {
             VentaDAO ventaDAO = new VentaDAO();
 
-            // 2. Traemos la suma total de las ventas de este turno
-            double totalVentas = ventaDAO.calcularTotalVentasPorTurno(turnoAbierto.getId());
+            double totalEfectivo = ventaDAO.calcularTotalVentasPorTurno(turnoAbierto.getId());
+            double totalTransferencias = ventaDAO.calcularTotalTransferenciasPorTurno(turnoAbierto.getId());
 
-            // 3. Calculamos el MONTO FINAL
-            double montoFinal = turnoAbierto.getMontoInicial() + totalVentas;
+            double montoFinalFisico = turnoAbierto.getMontoInicial() + totalEfectivo;
 
-            // 4. Cerramos el turno en la base de datos con el cálculo exacto
-            boolean exito = turnoDAO.cerrarTurno(montoFinal);
+            boolean exito = turnoDAO.cerrarTurno(montoFinalFisico);
 
             if (exito) {
-                String mensaje = String.format("El turno se ha cerrado exitosamente.\n\nDinero Base: $%.2f\n\nVentas del día: $%.2f\n\nTotal en Caja: $%.2f",
-                        turnoAbierto.getMontoInicial(), totalVentas, montoFinal);
-                mostrarInformacion("Caja Cerrada", mensaje);
+                String mensaje = String.format(
+                        "El turno se ha cerrado exitosamente.\n\n" +
+                                "Dinero Base Inicial: $%.2f\n" +
+                                "Ventas en Efectivo: $%.2f\n" +
+                                "Ventas por Transferencia: $%.2f\n\n" +
+                                "=======================\n" +
+                                "TOTAL ESPERADO EN CAJA (Físico): $%.2f\n" +
+                                "=======================\n\n",
+                        turnoAbierto.getMontoInicial(), totalEfectivo, totalTransferencias, montoFinalFisico);
 
+                mostrarInformacion("Caja Cerrada - Resumen de Turno", mensaje);
                 System.exit(0);
             }
         } else {

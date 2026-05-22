@@ -61,7 +61,6 @@ public class InventarioController implements Initializable {
 
     private Producto producto = null;
     private String query = null;
-    private ResultSet rs = null;
 
     private ObservableList<Producto> listaProducto = FXCollections.observableArrayList();
     private FilteredList<Producto> filtroBusqueda;
@@ -163,8 +162,8 @@ public class InventarioController implements Initializable {
         query = "SELECT * FROM productos ORDER BY nombre ASC";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            rs = pstmt.executeQuery();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
             
             while (rs.next()) {
                 listaProducto.add(new Producto(
