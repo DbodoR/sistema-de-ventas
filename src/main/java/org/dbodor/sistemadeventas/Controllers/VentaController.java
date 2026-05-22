@@ -26,6 +26,8 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class VentaController implements Initializable {
@@ -94,7 +96,7 @@ public class VentaController implements Initializable {
                                 "-fx-pref-height: 32px; " +
                                 "-fx-padding: 0; " +
                                 "-fx-background-radius: 5px;" +
-                                "-fx-background-color: red;" +
+                                "-fx-background-color: #a50505;" +
                                 "-fx-text-fill: white;"
                 );
             }
@@ -170,6 +172,68 @@ public class VentaController implements Initializable {
         }
     }
 
+    @FXML
+    private void manejarBusquedaProducto(ActionEvent event) {
+        String entrada = txtBuscar.getText().trim();
+        if (entrada.isEmpty()) return;
+
+        ProductoDAO productoDAO = new ProductoDAO();
+        Producto producto = productoDAO.buscar(entrada);
+
+        if (producto != null) {
+            agregarProductoAlCarrito(producto);
+            txtBuscar.clear();
+        } else {
+            List<Producto> coincidencias = productoDAO.buscarPorNombreAproximado(entrada);
+
+            if (coincidencias.isEmpty()) {
+                mostrarAlerta("Sin resultados", "No se encontró ningún producto con ese código o nombre.");
+                txtBuscar.selectAll();
+            } else if (coincidencias.size() == 1) {
+                agregarProductoAlCarrito(coincidencias.get(0));
+                txtBuscar.clear();
+            } else {
+                abrirModalSeleccionProducto(coincidencias);
+            }
+        }
+    }
+
+    private void abrirModalSeleccionProducto(List<Producto> productos) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/buscar_producto.fxml"));
+            Parent root = loader.load();
+
+            BuscarProductoController controller = loader.getController();
+            controller.cargarProductos(productos);
+
+            Stage modalStage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            modalStage.setTitle("Seleccionar Producto");
+            modalStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            modalStage.initOwner(txtBuscar.getScene().getWindow());
+            modalStage.setScene(scene);
+            modalStage.setResizable(false);
+            // Aplicar el icono de la app si lo creaste en los pasos anteriores
+            // HelloApplication.aplicarIcono(modalStage);
+
+            modalStage.showAndWait();
+
+            Producto elegido = controller.getProductoSeleccionado();
+            if (elegido != null) {
+                agregarProductoAlCarrito(elegido);
+                txtBuscar.clear();
+            } else {
+                txtBuscar.selectAll();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo cargar la ventana de búsqueda.");
+        }
+    }
+
     private void agregarProductoAlCarrito(Producto producto) {
         for (Producto p : carritoCompras) {
             if (p.getId() == producto.getId()) {
@@ -232,20 +296,16 @@ public class VentaController implements Initializable {
             }
         }
 
-        // Si hay productos sin inventario suficiente, se muestra la alerta corregida
         if (productosSinStock.length() > 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Stock Insuficiente");
             alert.setHeaderText("No se puede proceder con la venta:");
             alert.setContentText(productosSinStock.toString());
 
-            // Aplicar BootstrapFX
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
             dialogPane.getStyleClass().addAll("alert", "alert-danger");
 
-            // --- SOLUCIÓN AL TRUNCAMIENTO ("...") ---
-            // Forzar a que el texto se ajuste y no se corte
             dialogPane.setMinHeight(Region.USE_PREF_SIZE);
             dialogPane.setMinWidth(Region.USE_PREF_SIZE);
 

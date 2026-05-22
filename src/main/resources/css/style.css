@@ -32,8 +32,8 @@
 }
 
 .table-view .table-row-cell:selected {
-    -fx-background-color: #e7f1ff;
-    -fx-text-base-color: black;
+    -fx-background-color: #205d98;
+    -fx-text-base-color: #ffffff;
 }
 
 .default-color0.chart-bar {

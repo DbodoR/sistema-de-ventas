@@ -29,7 +29,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtBuscar" onAction="#buscarProducto" prefWidth="350.0" promptText="Código de barras o nombre" />
+            <TextField fx:id="txtBuscar" onAction="#manejarBusquedaProducto" prefWidth="350.0" promptText="Código de barras o nombre" />
          </children>
       </HBox>
       <TableView fx:id="tablaVenta" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

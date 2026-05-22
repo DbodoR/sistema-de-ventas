@@ -34,7 +34,7 @@
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="140.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label styleClass="h2" text="Ingresar Articulo">
+      <Label styleClass="h2" text="Ingresar Articulo" GridPane.columnIndex="1">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>

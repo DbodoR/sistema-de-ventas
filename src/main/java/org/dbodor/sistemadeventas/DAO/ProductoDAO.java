@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoDAO {
 
@@ -91,5 +93,32 @@ public class ProductoDAO {
             System.err.println("Error al actualizar producto: " + e.getMessage());
             return false;
         }
+    }
+
+    public List<Producto> buscarPorNombreAproximado(String busqueda) {
+        List<Producto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE nombre LIKE ? AND stock > 0";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%" + busqueda + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Producto prod = new Producto();
+                    prod.setId(rs.getInt("id"));
+                    prod.setCodigoBarras(rs.getString("codigo_barras"));
+                    prod.setNombre(rs.getString("nombre"));
+                    prod.setPrecio(rs.getDouble("precio"));
+                    prod.setCosto(rs.getDouble("costo"));
+                    prod.setStock(rs.getInt("stock"));
+                    // Asigna los demás campos si es necesario...
+                    lista.add(prod);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="915.0" prefWidth="1316.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.ReportesController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -91,7 +90,7 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Separator>
-            <VBox alignment="CENTER" prefHeight="376.0" prefWidth="591.0">
+            <VBox alignment="CENTER" prefHeight="406.0" prefWidth="665.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="57.0" prefWidth="484.0">
                      <children>

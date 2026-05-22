@@ -81,6 +81,12 @@ public class IngresarArticuloController implements Initializable {
             return;
         }
 
+        ProductoDAO proDAO = new ProductoDAO();
+
+        if (proDAO.buscar(fieldCodigo.getText()) != null) {
+            mostrarAlerta("Error al registrar producto","El codigo ya está en uso por otro articulo");
+        }
+
         String costoStr = fieldCosto.getText().trim();
         String precioStr = fieldPrecio.getText().trim();
         String stockStr = fieldStock.getText().trim();
@@ -109,8 +115,9 @@ public class IngresarArticuloController implements Initializable {
             return;
         }
 
-        if (costo < precio){
-            mostrarAlerta("Error de valores", "El costo no puede ser menor al precio");
+        if (precio <= costo){
+            mostrarAlerta("Error de valores", "El precio no puede ser menor o igual al costo");
+            return;
         }
 
         boolean precioVariable = false;
