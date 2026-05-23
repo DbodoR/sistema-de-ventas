@@ -30,6 +30,19 @@
                </font>
             </Label>
             <TextField fx:id="txtBuscar" onAction="#manejarBusquedaProducto" prefWidth="350.0" promptText="Código de barras o nombre" />
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#abrirHistorial" text="Historial de ventas">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+            </Button>
+            <Button disable="true" mnemonicParsing="false" text="Factura ultima venta">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+            </Button>
          </children>
       </HBox>
       <TableView fx:id="tablaVenta" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

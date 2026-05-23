@@ -8,6 +8,8 @@ public class Venta {
     private double total;
     private double montoRecibido;
     private double cambio;
+    private double pagoEfectivo;
+    private double pagoTransferencia;
 
     public Venta() {}
 
@@ -41,5 +43,21 @@ public class Venta {
 
     public void setCambio(double cambio) {
         this.cambio = cambio;
+    }
+
+    public double getPagoEfectivo() {
+        return pagoEfectivo;
+    }
+
+    public void setPagoEfectivo(double pagoEfectivo) {
+        this.pagoEfectivo = pagoEfectivo;
+    }
+
+    public double getPagoTransferencia() {
+        return pagoTransferencia;
+    }
+
+    public void setPagoTransferencia(double pagoTransferencia) {
+        this.pagoTransferencia = pagoTransferencia;
     }
 }

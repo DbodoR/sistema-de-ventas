@@ -66,7 +66,7 @@ public class TurnoDAO {
     }
 
     public Turno getTurnoAbierto() {
-        String sql = "SELECT id, monto_inicial FROM turnos WHERE estado = 'ABIERTO'";
+        String sql = "SELECT id, monto_inicial, fecha_apertura FROM turnos WHERE estado = 'ABIERTO'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -75,11 +75,34 @@ public class TurnoDAO {
                 Turno turno = new Turno();
                 turno.setId(rs.getInt("id"));
                 turno.setMontoInicial(rs.getDouble("monto_inicial"));
+
+                String fechaStr = rs.getString("fecha_apertura");
+                if (fechaStr != null) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    turno.setFechaApertura(LocalDateTime.parse(fechaStr, formatter));
+                }
                 return turno;
             }
         } catch (SQLException e) {
             System.out.println("Error al obtener el turno abierto: " + e.getMessage());
         }
         return null;
+    }
+
+    public double calcularTotalVentasDelTurno(int turnoId) {
+        String sql = "SELECT SUM(total) AS total_ventas FROM ventas WHERE turno_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, turnoId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("total_ventas"); // Si no hay ventas, SQLite devuelve 0.0 automáticamente
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al calcular las ventas del turno: " + e.getMessage());
+        }
+        return 0.0;
     }
 }

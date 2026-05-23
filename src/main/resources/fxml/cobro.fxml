@@ -45,10 +45,43 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Label>
-            <ComboBox fx:id="cmbMetodoPago" prefWidth="150.0" promptText="Efectivo" />
+            <ComboBox fx:id="cmbMetodoPago" prefWidth="150.0" promptText="Efectivo">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></ComboBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+      <VBox fx:id="VboxMixto" prefHeight="91.0" prefWidth="560.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Monto en efectivo:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="23.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtMontoRecibidoEfectivo" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Monto transferencia:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtMontoRecibidoTransferencia" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox fx:id="HboxMonto" alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
          <children>
             <Label text="Monto:">
                <font>
@@ -87,12 +120,14 @@
                <styleClass>
                   <String fx:value="btn-danger" />
                   <String fx:value="btn-sm" />
+                  <String fx:value="btn" />
                </styleClass>
             </Button>
             <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizarVenta" text="Finalizar">
                <styleClass>
                   <String fx:value="btn-success" />
                   <String fx:value="btn-sm" />
+                  <String fx:value="btn" />
                </styleClass>
             </Button>
          </children>

@@ -73,6 +73,12 @@ public class IngresarArticuloController implements Initializable {
                 return null;
             }
         });
+
+        fieldStock.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                fieldStock.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
     @FXML
     void agregarProducto(ActionEvent event) {
@@ -106,7 +112,7 @@ public class IngresarArticuloController implements Initializable {
             return;
         }
 
-        if (costo < 0 || precio < 0) {
+        if ((costo <= 0 || precio <= 0) && !checkPrecioVariable.isSelected()) {
             mostrarAlerta("Error de valores", "El costo y el precio no pueden ser negativos.");
             return;
         }
@@ -116,7 +122,7 @@ public class IngresarArticuloController implements Initializable {
             return;
         }
 
-        if (precio <= costo){
+        if (precio < costo){
             mostrarAlerta("Error de valores", "El precio no puede ser menor o igual al costo");
             return;
         }

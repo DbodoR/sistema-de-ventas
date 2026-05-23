@@ -19,6 +19,9 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -47,11 +50,49 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TurnoDAO turnoDAO = new TurnoDAO();
+        Turno turnoActual = turnoDAO.getTurnoAbierto();
 
-        if (!turnoDAO.hayTurnoAbierto()) {
+        if (turnoActual == null) {
             mostrarModalAperturaCaja();
         } else {
-            btnVenta.fire();
+            LocalDate fechaAperturaTurno = turnoActual.getFechaApertura().toLocalDate();
+            LocalDate fechaHoy = LocalDate.now(ZoneId.of("America/Bogota"));
+
+            if (fechaAperturaTurno.isBefore(fechaHoy)) {
+                double montoInicial = turnoActual.getMontoInicial();
+                double totalVendido = turnoDAO.calcularTotalVentasDelTurno(turnoActual.getId());
+                double montoFinalCalculado = montoInicial + totalVendido;
+
+                DateTimeFormatter formatoVisual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                Alert alertCierre = new Alert(Alert.AlertType.WARNING);
+                alertCierre.setTitle("Cierre de Caja");
+                alertCierre.setHeaderText("Turno abierto detectado de la fecha: " + fechaAperturaTurno.format(formatoVisual));
+                alertCierre.setContentText(
+                        "--- ARQUEO AUTOMÁTICO DE SEGURIDAD ---\n\n" +
+                                "• Base Inicial: $" + String.format("%,.2f", montoInicial) + "\n" +
+                                "• Ventas del Turno: $" + String.format("%,.2f", totalVendido) + "\n" +
+                                "• Efectivo Estimado en Caja: $" + String.format("%,.2f", montoFinalCalculado) + "\n\n" +
+                                "El sistema cerrará esta caja vieja y le pedirá la base para el día de hoy."
+                );
+                Stage stageAlerta = (Stage) alertCierre.getDialogPane().getScene().getWindow();
+
+                java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+                if (url != null) {
+                    stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+                }
+
+                DialogPane dialogPane = alertCierre.getDialogPane();
+                dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+                dialogPane.getStyleClass().addAll("alert", "alert-danger");
+                alertCierre.showAndWait();
+
+                turnoDAO.cerrarTurno(montoFinalCalculado);
+
+                mostrarModalAperturaCaja();
+            } else {
+                btnVenta.fire();
+            }
         }
 
         javafx.application.Platform.runLater(() -> {

@@ -4,9 +4,11 @@ public class DetalleVenta {
     private int id;
     private int ventaId;
     private int productoId;
+    private String nombreProducto;
     private int cantidad;
     private double precioUnitario;
     private double costoUnitario;
+    private double subTotal;
 
     public DetalleVenta() {}
 
@@ -38,5 +40,21 @@ public class DetalleVenta {
 
     public void setCostoUnitario(double costoUnitario) {
         this.costoUnitario = costoUnitario;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
 import org.dbodor.sistemadeventas.DAO.TurnoDAO;
@@ -26,10 +27,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class VentaController implements Initializable {
 
@@ -183,8 +181,30 @@ public class VentaController implements Initializable {
         Producto producto = productoDAO.buscar(entrada);
 
         if (producto != null) {
-            agregarProductoAlCarrito(producto);
-            txtBuscar.clear();
+
+            if (producto.getStock() <= 0) {
+
+                Alert alertStock = new Alert(Alert.AlertType.ERROR);
+                alertStock.setTitle("Inventario Agotado");
+                alertStock.setHeaderText("No es posible vender este artículo");
+                alertStock.setContentText("El producto '" + producto.getNombre() + "' no cuenta con existencias disponibles en el sistema (Stock: 0).");
+                Stage stageAlerta = (Stage) alertStock.getDialogPane().getScene().getWindow();
+                java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+                if (url != null) {
+                    stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+                }
+                DialogPane dialogPane = alertStock.getDialogPane();
+                dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+                dialogPane.getStyleClass().addAll("alert", "alert-danger");
+
+                alertStock.showAndWait();
+
+                txtBuscar.clear();
+            }else{
+                agregarProductoAlCarrito(producto);
+                txtBuscar.clear();
+            }
         } else {
             List<Producto> coincidencias = productoDAO.buscarPorNombreAproximado(entrada);
 
@@ -236,12 +256,59 @@ public class VentaController implements Initializable {
     }
 
     private void agregarProductoAlCarrito(Producto producto) {
-        for (Producto p : carritoCompras) {
-            if (p.getId() == producto.getId()) {
-                p.setCantidad(p.getCantidad() + 1);
+        if (producto.getPrecio() == 0.0 || producto.isPrecioVariable()) {
+            TextInputDialog dialog = new TextInputDialog("");
+            dialog.setTitle("Precio Variable");
+            dialog.setHeaderText("Producto: " + producto.getNombre());
+            dialog.setContentText("Ingrese el precio para esta unidad:");
+            Stage dialogStage = (Stage) dialog.getDialogPane().getScene().getWindow();
 
+            if (txtBuscar.getScene() != null && txtBuscar.getScene().getWindow() != null) {
+                Stage primaryStage = (Stage) txtBuscar.getScene().getWindow();
+                dialogStage.getIcons().addAll(primaryStage.getIcons());
+            }
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                String input = result.get().trim();
+                if (input.matches("\\d+(\\.\\d+)?")) {
+                    double precioDigitado = Double.parseDouble(input);
+                    if (precioDigitado <= 0) {
+                        mostrarAlerta("Error", "El precio debe ser mayor a $0.");
+                        txtBuscar.clear();
+                        return;
+                    }
+                    producto.setPrecio(precioDigitado);
+                } else {
+                    mostrarAlerta("Error", "Debe ingresar un número válido.");
+                    txtBuscar.clear();
+                    return;
+                }
+            } else {
+                txtBuscar.clear();
+                return;
+            }
+        }
+
+        if (producto.getPrecio() > 0.0 && producto.getStock() <= 0) {
+            mostrarAlerta("Inventario Agotado", "El producto '" + producto.getNombre() + "' no tiene existencias.");
+            txtBuscar.clear();
+            return;
+        }
+
+        for (Producto p : carritoCompras) {
+            if (p.getId() == producto.getId() && producto.getPrecio() > 0.0) {
+
+                if (p.getCantidad() + 1 > producto.getStock()) {
+                    mostrarAlerta("Límite de Stock", "No puedes agregar más unidades. Máximo disponible: " + producto.getStock());
+                    txtBuscar.clear();
+                    return;
+                }
+
+                p.setCantidad(p.getCantidad() + 1);
                 tablaVenta.refresh();
                 calcularTotal();
+                txtBuscar.clear();
                 return;
             }
         }
@@ -252,6 +319,7 @@ public class VentaController implements Initializable {
         tablaVenta.setItems(carritoCompras);
 
         btnCobrar.setDisable(false);
+        txtBuscar.clear();
     }
 
     private void calcularTotal() {
@@ -357,6 +425,31 @@ public class VentaController implements Initializable {
             }
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void abrirHistorial(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/historial_ventas.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Historial de Transacciones - Registro de Caja");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+            HelloApplication.aplicarIcono(stage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(btnCobrar.getScene().getWindow());
+
+            stage.setResizable(false);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            System.out.println("Error al abrir la ventana de historial: " + e.getMessage());
             e.printStackTrace();
         }
     }
