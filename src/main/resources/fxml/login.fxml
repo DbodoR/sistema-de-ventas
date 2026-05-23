@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.LoginController">
     <children>
-        <Button fx:id="btnIniciar" layoutX="346.0" layoutY="212.0" mnemonicParsing="false" onAction="#onClick" styleClass="btn-primary" text="Iniciar Sesión" />
-        <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="29.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-        <Label alignment="CENTER" layoutX="292.0" layoutY="26.0" prefHeight="37.0" prefWidth="194.0" text="JEAN PIER AGRO'S" textAlignment="CENTER">
+        <ImageView fitHeight="200.0" fitWidth="183.0" layoutX="30.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo_cuadrado_toonout.png" />
+         </image></ImageView>
+        <Label alignment="CENTER" layoutX="292.0" layoutY="26.0" prefHeight="37.0" prefWidth="194.0" text="JEAN PIER AGRO'S" textAlignment="CENTER" textFill="#2f2f2f">
             <font>
                 <Font name="Segoe UI Bold" size="19.0" />
             </font>
@@ -26,9 +30,14 @@
             </font>
         </Label>
       <Separator layoutX="228.0" layoutY="7.0" orientation="VERTICAL" prefHeight="323.0" prefWidth="9.0" />
+      <TextField fx:id="usuarioField" layoutX="314.0" layoutY="108.0" prefHeight="17.0" />
       <PasswordField fx:id="passwordField" layoutX="314.0" layoutY="169.0" prefHeight="17.0" />
       <Label layoutX="314.0" layoutY="91.0" text="Usuario" />
       <Label layoutX="316.0" layoutY="153.0" text="Contraseña" />
-      <TextField fx:id="usuarioField" layoutX="314.0" layoutY="108.0" prefHeight="17.0" />
+        <Button fx:id="btnIniciar" layoutX="346.0" layoutY="212.0" mnemonicParsing="false" onAction="#onClick" text="Iniciar Sesión">
+         <styleClass>
+            <String fx:value="btn-primary" />
+            <String fx:value="btn" />
+         </styleClass></Button>
     </children>
 </AnchorPane>

@@ -21,6 +21,14 @@ public class HelloApplication extends Application {
         stage.sizeToScene();
         stage.setResizable(false);
         stage.centerOnScreen();
+        aplicarIcono(stage);
         stage.show();
+    }
+
+    public static void aplicarIcono(Stage stage) {
+        java.net.URL url = HelloApplication.class.getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stage.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
     }
 }

@@ -4,30 +4,52 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.DashboardController">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnVenta" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaVenta" styleClass="btn-primary, btn-lg" text="Venta">
+            <Button fx:id="btnVenta" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaVenta" text="Venta">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btnInventario" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaInventario" styleClass="btn-primary, btn-lg" text="Inventario">
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="btn-lg" />
+                  <String fx:value="btn" />
+               </styleClass></Button>
+            <Button fx:id="btnInventario" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaInventario" text="Inventario">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btnGuardarArticulo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaIngresarProducto" styleClass="btn-primary, btn-lg" text="Ingresar articulo">
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="btn-lg" />
+                  <String fx:value="btn" />
+               </styleClass></Button>
+            <Button fx:id="btnGuardarArticulo" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaIngresarProducto" text="Ingresar articulo">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
-            <Button fx:id="btnGraficas" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaGraficas" styleClass="btn-primary, btn-lg" text="Reportes">
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="btn-lg" />
+                  <String fx:value="btn" />
+               </styleClass></Button>
+            <Button fx:id="btnGraficas" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaGraficas" text="Reportes">
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></Button>
+               </cursor>
+               <styleClass>
+                  <String fx:value="btn-primary" />
+                  <String fx:value="btn-lg" />
+                  <String fx:value="btn" />
+               </styleClass></Button>
             <Button fx:id="btnCerrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrarCaja" text="Cerrar caja">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -35,7 +57,20 @@
                <styleClass>
                   <String fx:value="btn-danger" />
                   <String fx:value="btn-lg" />
+                  <String fx:value="btn" />
                </styleClass></Button>
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="330.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo_cuadrado_toonout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
          <BorderPane.margin>
             <Insets />

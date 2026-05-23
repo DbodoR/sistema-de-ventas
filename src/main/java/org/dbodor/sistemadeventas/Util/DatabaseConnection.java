@@ -1,17 +1,12 @@
 package org.dbodor.sistemadeventas.Util;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlite:src/main/resources/database/tienda.db";
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL);
-    }
-
-    /*
     private static final String URL = "jdbc:sqlite:database/tienda.db";
 
     public static Connection getConnection() throws SQLException {
@@ -92,7 +87,6 @@ public class DatabaseConnection {
             System.err.println("Error al inicializar la base de datos: " + e.getMessage());
         }
     }
-    */
 
     public static void testConnection() throws SQLException {
         try (Connection conn = getConnection()) {

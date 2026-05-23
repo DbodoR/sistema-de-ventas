@@ -13,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.dbodor.sistemadeventas.DAO.UsuariosDAO;
+import org.dbodor.sistemadeventas.HelloApplication;
 import org.dbodor.sistemadeventas.Util.DatabaseConnection;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
@@ -58,7 +59,6 @@ public class LoginController {
                 }
                 DatabaseConnection.testConnection();
 
-                // 2. Validación de usuario (70% -> 100%)
                 updateMessage("Validando credenciales...");
                 UsuariosDAO usuariosDAO = new UsuariosDAO();
                 boolean esValido = usuariosDAO.validarUsuario(usuarioField.getText(), passwordField.getText());
@@ -104,6 +104,7 @@ public class LoginController {
 
                     stage.setResizable(true);
                     stage.setMaximized(true);
+                    HelloApplication.aplicarIcono(stage);
                 } catch (IOException ex) {
                     System.out.println("Error al cargar el Dashboard: " + ex.getMessage());
                     ex.printStackTrace();

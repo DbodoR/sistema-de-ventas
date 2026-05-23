@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dbodor.sistemadeventas.DAO.CategoriaDAO;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
+import org.dbodor.sistemadeventas.HelloApplication;
 import org.dbodor.sistemadeventas.Model.Producto;
 import org.dbodor.sistemadeventas.Util.DatabaseConnection;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -206,6 +207,8 @@ public class InventarioController implements Initializable {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
 
+            HelloApplication.aplicarIcono(stage);
+
             stage.showAndWait();
 
             recargarLista();
@@ -223,6 +226,7 @@ public class InventarioController implements Initializable {
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-success");
         alert.showAndWait();
     }
@@ -233,8 +237,16 @@ public class InventarioController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-danger");
         alert.showAndWait();
     }

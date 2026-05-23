@@ -6,16 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.dbodor.sistemadeventas.DAO.TurnoDAO;
 import org.dbodor.sistemadeventas.DAO.VentaDAO;
+import org.dbodor.sistemadeventas.HelloApplication;
 import org.dbodor.sistemadeventas.Model.Turno;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
@@ -43,6 +42,8 @@ public class DashboardController implements Initializable {
     @FXML
     private Button btnVenta;
 
+    private Stage stage = new Stage();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TurnoDAO turnoDAO = new TurnoDAO();
@@ -52,6 +53,50 @@ public class DashboardController implements Initializable {
         } else {
             btnVenta.fire();
         }
+
+        javafx.application.Platform.runLater(() -> {
+            stage = (Stage) btnCerrar.getScene().getWindow();
+
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+
+                TurnoDAO turnDAO = new TurnoDAO();
+                if (turnDAO.hayTurnoAbierto()) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Cierre de Aplicación");
+                    alert.setHeaderText("¿Qué desea hacer?");
+                    alert.setContentText("Aún hay un turno abierto. Puede cerrar el turno actual o salir sin cerrarlo.");
+
+                    Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+                    java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+                    if (url != null) {
+                        stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+                    }
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+                    dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+                    dialogPane.getStyleClass().addAll("alert", "alert-warning");
+
+                    ButtonType btnCerrarTurno = new ButtonType("Cerrar Turno y Salir");
+                    ButtonType btnSalirSinCerrar = new ButtonType("Salir sin cerrar");
+                    ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(btnCerrarTurno, btnSalirSinCerrar, btnCancelar);
+
+                    alert.showAndWait().ifPresent(tipo -> {
+                        if (tipo == btnCerrarTurno) {
+                            cerrarCaja(null);
+                        } else if (tipo == btnSalirSinCerrar) {
+                            System.exit(0);
+                        }
+                    });
+                } else {
+                    System.exit(0);
+                }
+            });
+        });
     }
 
     private void mostrarModalAperturaCaja() {
@@ -59,7 +104,6 @@ public class DashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/apertura_caja.fxml"));
             Parent root = loader.load();
 
-            Stage stage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             stage.setScene(scene);
@@ -70,9 +114,12 @@ public class DashboardController implements Initializable {
 
             stage.setOnCloseRequest(event -> event.consume());
 
+            HelloApplication.aplicarIcono(stage);
+
             stage.showAndWait();
 
             btnVenta.fire();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,8 +222,16 @@ public class DashboardController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-success");
         alert.showAndWait();
     }
@@ -187,8 +242,16 @@ public class DashboardController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-danger");
         alert.showAndWait();
     }

@@ -14,6 +14,7 @@ import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import org.dbodor.sistemadeventas.DAO.CategoriaDAO;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
+import org.dbodor.sistemadeventas.HelloApplication;
 import org.dbodor.sistemadeventas.Model.Categoria;
 import org.dbodor.sistemadeventas.Model.Producto;
 import org.kordamp.bootstrapfx.BootstrapFX;
@@ -164,6 +165,8 @@ public class IngresarArticuloController implements Initializable {
 
             stage.initModality(Modality.APPLICATION_MODAL);
 
+            HelloApplication.aplicarIcono(stage);
+
             stage.showAndWait();
 
             CategoriaDAO catDAO = new CategoriaDAO();
@@ -201,6 +204,8 @@ public class IngresarArticuloController implements Initializable {
             stage.setScene(scene);
 
             stage.initModality(Modality.APPLICATION_MODAL);
+
+            HelloApplication.aplicarIcono(stage);
 
             stage.showAndWait();
 
@@ -241,8 +246,16 @@ public class IngresarArticuloController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-danger");
         alert.showAndWait();
     }
@@ -253,8 +266,16 @@ public class IngresarArticuloController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-success");
         alert.showAndWait();
     }

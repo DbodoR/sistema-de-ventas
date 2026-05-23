@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.dbodor.sistemadeventas.DAO.ProductoDAO;
 import org.dbodor.sistemadeventas.DAO.TurnoDAO;
+import org.dbodor.sistemadeventas.HelloApplication;
 import org.dbodor.sistemadeventas.Model.DetalleVenta;
 import org.dbodor.sistemadeventas.Model.Producto;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -174,22 +175,6 @@ public class VentaController implements Initializable {
     }
 
     @FXML
-    void buscarProducto(ActionEvent event) {
-        ProductoDAO proDAO = new ProductoDAO();
-        String criterio = txtBuscar.getText();
-        if (criterio.isEmpty()) {
-            return;
-        }
-        producto = proDAO.buscar(criterio);
-
-        if (producto != null) {
-            agregarProductoAlCarrito(producto);
-            txtBuscar.clear();
-            txtBuscar.requestFocus();
-        }
-    }
-
-    @FXML
     private void manejarBusquedaProducto(ActionEvent event) {
         String entrada = txtBuscar.getText().trim();
         if (entrada.isEmpty()) return;
@@ -232,8 +217,7 @@ public class VentaController implements Initializable {
             modalStage.initOwner(txtBuscar.getScene().getWindow());
             modalStage.setScene(scene);
             modalStage.setResizable(false);
-            // Aplicar el icono de la app si lo creaste en los pasos anteriores
-            // HelloApplication.aplicarIcono(modalStage);
+            HelloApplication.aplicarIcono(modalStage);
 
             modalStage.showAndWait();
 
@@ -352,11 +336,13 @@ public class VentaController implements Initializable {
             Stage modalStage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
             modalStage.setScene(scene);
             modalStage.setTitle("Caja de Cobro");
             modalStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             modalStage.initOwner(btnCobrar.getScene().getWindow());
             modalStage.setResizable(false);
+            HelloApplication.aplicarIcono(modalStage);
 
             modalStage.showAndWait();
 
@@ -381,8 +367,16 @@ public class VentaController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
 
+        Stage stageAlerta = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        java.net.URL url = getClass().getResource("/images/logo_cuadrado_toonout.png");
+        if (url != null) {
+            stageAlerta.getIcons().add(new javafx.scene.image.Image(url.toExternalForm()));
+        }
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         dialogPane.getStyleClass().addAll("alert", "alert-danger");
         alert.showAndWait();
     }
