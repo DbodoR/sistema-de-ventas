@@ -176,6 +176,13 @@ public class DashboardController implements Initializable {
             areaContenido.getChildren().clear();
             areaContenido.getChildren().add(vistaHija);
 
+            if (vistaHija instanceof javafx.scene.layout.Region) {
+                javafx.scene.layout.Region region = (javafx.scene.layout.Region) vistaHija;
+
+                region.prefWidthProperty().bind(areaContenido.widthProperty());
+                region.prefHeightProperty().bind(areaContenido.heightProperty());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -189,6 +196,13 @@ public class DashboardController implements Initializable {
 
             areaContenido.getChildren().clear();
             areaContenido.getChildren().add(vistaHija);
+
+            if (vistaHija instanceof javafx.scene.layout.Region) {
+                javafx.scene.layout.Region region = (javafx.scene.layout.Region) vistaHija;
+
+                region.prefWidthProperty().bind(areaContenido.widthProperty());
+                region.prefHeightProperty().bind(areaContenido.heightProperty());
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -204,6 +218,13 @@ public class DashboardController implements Initializable {
             areaContenido.getChildren().clear();
             areaContenido.getChildren().add(vistaHija);
 
+            if (vistaHija instanceof javafx.scene.layout.Region) {
+                javafx.scene.layout.Region region = (javafx.scene.layout.Region) vistaHija;
+
+                region.prefWidthProperty().bind(areaContenido.widthProperty());
+                region.prefHeightProperty().bind(areaContenido.heightProperty());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,6 +238,13 @@ public class DashboardController implements Initializable {
 
             areaContenido.getChildren().clear();
             areaContenido.getChildren().add(vistaHija);
+
+            if (vistaHija instanceof javafx.scene.layout.Region) {
+                javafx.scene.layout.Region region = (javafx.scene.layout.Region) vistaHija;
+
+                region.prefWidthProperty().bind(areaContenido.widthProperty());
+                region.prefHeightProperty().bind(areaContenido.heightProperty());
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

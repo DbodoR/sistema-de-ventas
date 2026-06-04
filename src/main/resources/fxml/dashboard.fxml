@@ -12,7 +12,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.dbodor.sistemadeventas.Controllers.DashboardController">
    <top>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" spacing="10.0" styleClass="panel-primary" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnVenta" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ventanaVenta" text="Venta">
                <cursor>

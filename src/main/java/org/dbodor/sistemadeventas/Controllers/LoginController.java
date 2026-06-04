@@ -96,8 +96,8 @@ public class LoginController {
                     stage.setTitle("Sistema de Ventas - Jean Pier Agro's");
                     stage.setScene(scene);
 
-                    double anchoDeseado = 1920;
-                    double altoDeseado = 1080;
+                    double anchoDeseado = 1366;
+                    double altoDeseado = 768;
 
                     stage.setMinWidth(anchoDeseado);
                     stage.setMinHeight(altoDeseado);

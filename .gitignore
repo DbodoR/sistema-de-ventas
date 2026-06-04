@@ -5,6 +5,7 @@ target/
 .kotlin
 output/
 database/
+Util/
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
